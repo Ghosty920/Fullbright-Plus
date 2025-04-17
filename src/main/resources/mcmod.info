@@ -1,0 +1,18 @@
+[
+  {
+    "modid": "${modid}",
+    "name": "Fullbright Plus",
+    "description": "Completely disable the whole visual lightning system to make the game as bright as possible while boosting performances.",
+    "version": "${version}",
+    "mcversion": "1.8.9",
+    "url": "https://github.com/Ghosty920/Fullbright-Plus",
+    "updateUrl": "https://github.com/Ghosty920/Fullbright-Plus/releases/latest",
+    "authorList": [
+      "Ghosty"
+    ],
+    "credits": "",
+    "logoFile": "assets/fullbrightplus/icon.png",
+    "screenshots": [],
+    "dependencies": []
+  }
+]

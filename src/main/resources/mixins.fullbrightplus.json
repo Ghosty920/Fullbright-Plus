@@ -1,0 +1,18 @@
+{
+  "package": "im.ghosty.fullbrightplus.mixin",
+  "refmap": "mixins.${modid}.refmap.json",
+  "minVersion": "0.7",
+  "compatibilityLevel": "JAVA_8",
+  "client": [
+    "block.BlockMixin",
+    "block.MinecraftMixin",
+    "entity.EntityRendererMixin",
+    "entity.RendererLivingEntityMixin",
+    "entity.RenderManagerMixin",
+    "entity.WorldMixin",
+    "other.GuiIngameMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
