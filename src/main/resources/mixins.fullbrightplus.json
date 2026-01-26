@@ -5,6 +5,7 @@
   "compatibilityLevel": "JAVA_8",
   "client": [
     "block.BlockMixin",
+    "block.ChunkMixin",
     "block.MinecraftMixin",
     "entity.EntityRendererMixin",
     "entity.RendererLivingEntityMixin",
@@ -14,8 +15,5 @@
   ],
   "injectors": {
     "defaultRequire": 1
-  },
-  "mixins": [
-    "block.ChunkMixin"
-  ]
+  }
 }

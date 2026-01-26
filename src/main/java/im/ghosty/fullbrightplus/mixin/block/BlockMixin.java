@@ -1,20 +1,21 @@
 package im.ghosty.fullbrightplus.mixin.block;
 
+import im.ghosty.fullbrightplus.FBP;
 import net.minecraft.block.Block;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.IBlockAccess;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Block.class)
 public class BlockMixin {
 	
-	@SideOnly(Side.CLIENT)
-	@Overwrite
-	public int getMixedBrightnessForBlock(IBlockAccess worldIn, BlockPos pos) {
-		return Integer.MAX_VALUE;
+	@Inject(method = "getMixedBrightnessForBlock", at = @At("HEAD"), cancellable = true)
+	public void getMixedBrightnessForBlock(IBlockAccess worldIn, BlockPos pos, CallbackInfoReturnable<Integer> cir) {
+		if (FBP.enabled)
+			cir.setReturnValue(Integer.MAX_VALUE);
 	}
 	
 }

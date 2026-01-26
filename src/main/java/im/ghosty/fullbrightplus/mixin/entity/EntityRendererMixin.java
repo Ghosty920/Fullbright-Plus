@@ -1,10 +1,12 @@
 package im.ghosty.fullbrightplus.mixin.entity;
 
+import im.ghosty.fullbrightplus.FBP;
 import net.minecraft.client.renderer.EntityRenderer;
 import net.minecraft.client.settings.GameSettings;
+import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.*;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.*;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 /**
  * Prevents the lightmap from being regenerated. That's a pure lose of time as it's always as bright as possible, and the map will not change.
@@ -22,17 +24,24 @@ public class EntityRendererMixin {
 	private boolean fbp$torchFlickerSet = false;
 	
 	/**
-	 * Torch Flicker is a semi-random method that is only used for updateLightmap.
+	 * Torch Flicker is a semi-random method only used for updateLightmap.
 	 * <p>
 	 * I don't know the point of it, but anyway we don't need it at all, since we never need to regenate the map (the light will never change).
 	 * <p>
-	 * So we just generate a similar value once, then skip all calls.
+	 * So we just generate a similar value once, then skip all calls if FBP is enabled.
 	 */
-	@Overwrite
-	public void updateTorchFlicker() {
-		if (fbp$torchFlickerSet)
+	@Inject(method = "updateTorchFlicker", at = @At("HEAD"), cancellable = true)
+	private void fbp$updateTorchFlicker(CallbackInfo ci) {
+		if (FBP.enabled) {
+			fbp$torchFlickerSet = true;
 			return;
+		}
+		if (fbp$torchFlickerSet) {
+			ci.cancel();
+			return;
+		}
 		fbp$torchFlickerSet = true;
+		
 		// completely made up formula, gives stuff around what the normal function does ¯\_(:3)_/¯
 		// could probably even give like 0.1, but that wouldn't be fun (anyway it's not a big thing)
 		torchFlickerX = torchFlickerDX = (float) ((1 - Math.sqrt(Math.random() * 2)) / 2);
@@ -42,9 +51,9 @@ public class EntityRendererMixin {
 	/**
 	 * It goes with the idea the gamma is VERY HIGH to boost values VERY HIGH too, to be sure it's the maximum value possible each time.
 	 */
-	@Redirect(method = "updateLightmap", at = @At(value = "FIELD", target = "Lnet/minecraft/client/settings/GameSettings;gammaSetting:F", ordinal = 0))
+	@Redirect(method = "updateLightmap", at = @At(value = "FIELD", target = "Lnet/minecraft/client/settings/GameSettings;gammaSetting:F", ordinal = 0, opcode = Opcodes.GETFIELD))
 	private float redirectGammaSetting(GameSettings gameSettings) {
-		return 100000.0F;
+		return FBP.enabled ? 100000.0F : gameSettings.gammaSetting;
 	}
 	
 }

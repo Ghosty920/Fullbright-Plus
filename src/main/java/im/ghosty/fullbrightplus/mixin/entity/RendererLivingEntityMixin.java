@@ -1,5 +1,6 @@
 package im.ghosty.fullbrightplus.mixin.entity;
 
+import im.ghosty.fullbrightplus.FBP;
 import net.minecraft.client.renderer.entity.RendererLivingEntity;
 import net.minecraft.entity.EntityLivingBase;
 import org.spongepowered.asm.mixin.Mixin;
@@ -14,7 +15,7 @@ public class RendererLivingEntityMixin {
 	
 	@Redirect(method = "setBrightness", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/EntityLivingBase;getBrightness(F)F"))
 	private float redirectGetBrightness(EntityLivingBase entity, float partialTicks) {
-		return 1.0F;
+		return FBP.enabled ? 1.0F : entity.getBrightness(partialTicks);
 	}
 	
 }
