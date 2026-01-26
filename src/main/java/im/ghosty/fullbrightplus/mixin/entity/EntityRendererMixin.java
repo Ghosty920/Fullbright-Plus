@@ -32,7 +32,7 @@ public class EntityRendererMixin {
 	 */
 	@Inject(method = "updateTorchFlicker", at = @At("HEAD"), cancellable = true)
 	private void fbp$updateTorchFlicker(CallbackInfo ci) {
-		if (FBP.enabled) {
+		if (!FBP.enabled) {
 			fbp$torchFlickerSet = true;
 			return;
 		}
@@ -46,6 +46,7 @@ public class EntityRendererMixin {
 		// could probably even give like 0.1, but that wouldn't be fun (anyway it's not a big thing)
 		torchFlickerX = torchFlickerDX = (float) ((1 - Math.sqrt(Math.random() * 2)) / 2);
 		lightmapUpdateNeeded = true;
+		ci.cancel();
 	}
 	
 	/**
