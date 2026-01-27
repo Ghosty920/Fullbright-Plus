@@ -96,6 +96,9 @@ tasks.withType(org.gradle.jvm.tasks.Jar::class) {
         this["TweakClass"] = "org.spongepowered.asm.launch.MixinTweaker"
         this["MixinConfigs"] = "mixins.$modid.json"
     }
+    from("LICENSE") {
+        rename { "LICENSE.txt" }
+    }
 }
 
 tasks.processResources {
