@@ -24,8 +24,7 @@ render classes. Some brightness methods are used for living conditions, and **th
 ### How does the mod work?
 
 You can look at every modification made to the
-game [in the mixin folder](https://github.com/Ghosty920/Fullbright-Plus/tree/main/src/main/java/im/ghosty/fullbrightplus/mixin),
-all documented.
+game [in the mixin folder](https://github.com/Ghosty920/Fullbright-Plus/tree/1.8.9/src/main/java/im/ghosty/fullbrightplus/mixin).
 
 ### What is the compatibility with other mods?
 

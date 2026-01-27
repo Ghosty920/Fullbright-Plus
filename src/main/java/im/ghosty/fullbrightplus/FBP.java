@@ -14,7 +14,7 @@ public final class FBP {
 	
 	public static boolean enabled = true;
 	
-	public static final KeyBinding keybind = new KeyBinding("Toggle FullBright", Keyboard.KEY_G, "Fullbright Plus");
+	public static final KeyBinding keybind = new KeyBinding("Toggle Fullbright", Keyboard.KEY_G, "Fullbright Plus");
 	
 	@Mod.EventHandler
 	public void init(FMLInitializationEvent event) {
