@@ -1,5 +1,6 @@
 package im.ghosty.fullbrightplus;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
@@ -26,6 +27,7 @@ public final class FBP {
 	public void onKey(InputEvent.KeyInputEvent event) {
 		if(!keybind.isPressed()) return;
 		enabled = !enabled;
+		Minecraft.getMinecraft().renderGlobal.loadRenderers();
 	}
 	
 }
